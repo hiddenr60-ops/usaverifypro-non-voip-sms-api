@@ -56,3 +56,29 @@ if __name__ == "__main__":
     # 2. Wait for incoming SMS OTP
     otp = poll_for_otp(order_id=order.get("order_id"))
     print(f"Received Verification Code: {otp}")
+
+
+
+
+
+
+
+
+
+const API_KEY = process.env.USAVERIFY_API_KEY || "YOUR_USAVERIFYPRO_API_KEY";
+const BASE_URL = "[https://usaverifypro.com/api/v1](https://usaverifypro.com/api/v1)";
+
+async function rentAndVerify(service = "whatsapp") {
+  const res = await fetch(`${BASE_URL}/rent`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ service, country: "US" })
+  });
+
+  const order = await res.json();
+  console.log(`Rented US Physical SIM: ${order.phone_number} (ID: ${order.order_id})`);
+  return order;
+}
